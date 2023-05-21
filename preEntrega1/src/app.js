@@ -12,7 +12,7 @@ const productManager = new ProductManager();
 
 app.use("/api/products", productManagerRouter);
 
-app.use("/api/carts", cartsRouter);
+app.use("/api/carts/", cartsRouter);
 
 app.get("*", (req, res) => {
   res.status(404).send({ status: "error", data: "Page not found" });
