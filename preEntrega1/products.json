@@ -1,8 +1,8 @@
 [
   {
-    "title": "producto prueba",
+    "title": "producto prueba1",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 1000,
     "thumbnail": "/aaaa",
     "code": "1",
     "stock": 10,
@@ -11,9 +11,9 @@
     "id": 1
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba2",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 2000,
     "thumbnail": "/aaaa",
     "code": "12",
     "stock": 10,
@@ -22,9 +22,9 @@
     "id": 2
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba3",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 3000,
     "thumbnail": "/aaaa",
     "code": "3",
     "stock": 10,
@@ -33,9 +33,9 @@
     "id": 3
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba4",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 4000,
     "thumbnail": "/aaaa",
     "code": "344",
     "stock": 10,
@@ -44,9 +44,9 @@
     "id": 4
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba5",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 5000,
     "thumbnail": "/aaaa",
     "code": "34466",
     "stock": 10,
@@ -55,9 +55,9 @@
     "id": 5
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba6",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 6000,
     "thumbnail": "/aaaa",
     "code": "aa",
     "stock": 10,
@@ -66,9 +66,9 @@
     "id": 6
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba7",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 7000,
     "thumbnail": "/aaaa",
     "code": "dddd",
     "stock": 10,
@@ -77,9 +77,9 @@
     "id": 7
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba8",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 8000,
     "thumbnail": "/aaaa",
     "code": "12312",
     "stock": 10,
@@ -88,9 +88,9 @@
     "id": 8
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba9",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 9000,
     "thumbnail": "/aaaa",
     "code": "13213",
     "stock": 10,
@@ -99,9 +99,9 @@
     "id": 9
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba10",
     "description": "descripcion de producto",
-    "price": 12000,
+    "price": 10000,
     "thumbnail": "/aaaa",
     "code": "113133213",
     "stock": 10,
