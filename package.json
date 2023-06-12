@@ -3,12 +3,15 @@
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
     "moment": "^2.29.4",
+    "mongoose": "^7.2.3",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.22",
     "remote": "^0.2.6",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.12"
   },
-  "name": "desafio3",
+  "name": "preEntrega1_backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

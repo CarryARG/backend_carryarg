@@ -16,6 +16,7 @@ export class ProductManager {
   static id = 0;
 
   #validateStringField(key, product) {
+    console.log(product[key]);
     if (!product[key]) {
       throw new Error(`Error: Field ${key} is required`);
     } else if (
@@ -62,7 +63,21 @@ export class ProductManager {
       this.#validateStringField("title", addedProduct);
       this.#validateStringField("description", addedProduct);
       this.#validateNumberField("price", addedProduct);
-      this.#validateStringField("thumbnail", addedProduct);
+      JSON.stringify(addedProduct.thumbnails);
+      let thumbnails = addedProduct.thumbnails;
+      let arrayThumbnails = thumbnails.split(",");
+      addedProduct.thumbnails = arrayThumbnails;
+      addedProduct.thumbnails.forEach((thumbnail) => {
+        if (
+          thumbnail === "" ||
+          thumbnail === undefined ||
+          thumbnail === null ||
+          typeof thumbnail !== "string"
+        ) {
+          throw new Error("Error: Thumbnail is invalid");
+        }
+      });
+
       this.#validateStringField("code", addedProduct);
       this.#validateNumberField("stock", addedProduct);
       this.#validateStringField("category", addedProduct);
@@ -74,7 +89,7 @@ export class ProductManager {
           title: addedProduct.title,
           description: addedProduct.description,
           price: addedProduct.price,
-          thumbnail: addedProduct.thumbnail,
+          thumbnails: addedProduct.thumbnails,
           code: addedProduct.code,
           stock: addedProduct.stock,
           status: true,
@@ -113,10 +128,11 @@ export class ProductManager {
     return new Promise((resolve, reject) => {
       let newProductFields = Object.keys(product);
 
+      if (newProductFields.includes("id")) {
+        return reject(new Error("Product ID cannot be updated"));
+      }
+
       newProductFields.forEach((field) => {
-        if (field === "id") {
-          reject(new Error("Product ID cannot be updated"));
-        }
         if (
           field === "title" ||
           field === "description" ||
