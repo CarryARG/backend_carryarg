@@ -12,6 +12,8 @@ import { connectMongo } from "./utils.js";
 const app = express();
 const port = 8080;
 
+//http://localhost:8080/realtimeproducts
+
 connectMongo();
 
 app.use(express.urlencoded({ extended: true }));
