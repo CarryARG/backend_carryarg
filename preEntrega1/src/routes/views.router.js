@@ -1,8 +1,8 @@
 import express from "express";
 import { Router } from "express";
-import { ProductManager } from "../dao/services/productManager.js";
 import { ProductManagerMongo } from "../dao/services/productManagerMongo.js";
-const productManager = new ProductManager();
+import { productsModel } from "../dao/models/products.model.js";
+
 const productManagerMongo = new ProductManagerMongo();
 
 export const viewsRouter = Router();
@@ -11,15 +11,24 @@ viewsRouter.use(express.json());
 viewsRouter.use(express.urlencoded({ extended: true }));
 
 viewsRouter.get("/", async (req, res) => {
-  let allProducts = await productManagerMongo.getProducts();
-  let mapAllproducts = allProducts.map((product) => {
-    return {
+  const allProducts = await productManagerMongo.getProducts(req.query);
+
+  res.status(200).render("home", {
+    p: allProducts.docs.map((product) => ({
       name: product.name,
       description: product.description,
       price: product.price,
-    };
+    })),
+    pagingCounter: allProducts.pagingCounter,
+    page: allProducts.page,
+    totalPages: allProducts.totalPages,
+    hasPrevPage: allProducts.hasPrevPage,
+    hasNextPage: allProducts.hasNextPage,
+    prevPage: allProducts.prevPage,
+    nextPage: allProducts.nextPage,
+
+    // ...allProducts,
   });
-  res.render("home", { mapAllproducts });
 });
 
 viewsRouter.get("/realtimeproducts", async (req, res) => {

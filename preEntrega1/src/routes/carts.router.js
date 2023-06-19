@@ -39,3 +39,15 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
     res.status(404).send({ status: "error", error: error.message });
   }
 });
+
+cartsRouter.delete("/:cid/product/:pid", async (req, res) => {
+  try {
+    let cid = req.params.cid;
+    let pid = req.params.pid;
+    const cartId = await cartsManagerMongo.deleteProductFromCart(cid, pid);
+
+    res.status(200).send({ status: "success", data: cartId });
+  } catch (error) {
+    res.status(404).send({ status: "error", error: error.message });
+  }
+});

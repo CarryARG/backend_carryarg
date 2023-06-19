@@ -1,7 +1,6 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
-import { ProductManager } from "./dao/services/productManager.js";
 import { productManagerRouter } from "./routes/products.router.js";
 import { ProductManagerMongo } from "./dao/services/productManagerMongo.js";
 import { MsgModel } from "./dao/models/msgs.model.js";
@@ -17,7 +16,8 @@ const port = 8080;
 connectMongo();
 
 app.use(express.urlencoded({ extended: true }));
-const productManager = new ProductManager();
+
+const productManagerMongo = new ProductManagerMongo();
 
 const httpServer = app.listen(port, () => {
   console.log(`Server running on port http://localhost:${port}`);
@@ -34,14 +34,14 @@ app.use("/", viewsRouter);
 
 socketServer.on("connection", async (socket) => {
   console.log("Nuevo cliente conectado");
-  const products = await productManager.getProducts();
+  const products = await productManagerMongo.getProducts();
   socket.emit("products", products);
   const msgs = await MsgModel.find({});
   socketServer.sockets.emit("all_msgs", msgs);
 
   socket.on("formSubmission", async (data) => {
-    await productManager.addProduct(data);
-    const products = await productManager.getProducts();
+    await productManagerMongo.addProduct(data);
+    const products = await productManagerMongo.getProducts();
     socketServer.sockets.emit("products", products);
   });
 

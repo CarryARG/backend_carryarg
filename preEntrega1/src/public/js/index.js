@@ -7,7 +7,7 @@ form.addEventListener("submit", (e) => {
 
   let formData = new FormData(form);
 
-  let title = formData.get("title");
+  let name = formData.get("name");
   let description = formData.get("description");
   let price = formData.get("price");
   let thumbnails = formData.get("thumbnails");
@@ -16,7 +16,7 @@ form.addEventListener("submit", (e) => {
   let category = formData.get("category");
 
   let product = {
-    title: title,
+    name: name,
     description: description,
     price: price,
     thumbnails: thumbnails,
@@ -35,7 +35,7 @@ socket.on("products", (products) => {
 
   products.forEach((element) => {
     divAllProducts.innerHTML += `<div style="width: 250px; padding: 15px; border: solid 3px; margin: 15px;">
-    <p>${element.title}</p>
+    <p>${element.name}</p>
     <p>${element.description}</p>
     <p>${element.price}</p>
     </div>`;

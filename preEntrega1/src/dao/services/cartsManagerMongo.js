@@ -35,7 +35,6 @@ export class CartManagerMongo {
   async addProductToCart(cId, pId) {
     try {
       const productToAdd = await productManagerMongo.getProductById(pId);
-      console.log(productToAdd);
 
       if (!productToAdd) {
         throw new Error("Product not found");
@@ -53,6 +52,33 @@ export class CartManagerMongo {
           $push: { products: { pId: productToAdd._id, quantity: 1 } },
         });
       }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async deleteProductFromCart(cId, pId) {
+    try {
+      const productToDelete = await productManagerMongo.getProductById(pId);
+
+      if (!productToDelete) {
+        throw new Error("Product not found");
+      }
+
+      let cart = await cartsModel.findOneAndUpdate(
+        { _id: cId, "products.pId": productToDelete._id },
+        {
+          $inc: { "products.$.quantity": -1 },
+        }
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async deleteAllProductsFromCart(cId) {
+    try {
+      await cartsModel.findByIdAndUpdate(cId, { products: [] });
     } catch (error) {
       throw new Error(error);
     }

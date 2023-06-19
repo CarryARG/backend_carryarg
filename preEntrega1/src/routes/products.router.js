@@ -1,5 +1,6 @@
 import { Router } from "express";
 import express from "express";
+import { productsModel } from "../dao/models/products.model.js";
 import { ProductManagerMongo } from "../dao/services/productManagerMongo.js";
 
 export const productManagerRouter = Router();
@@ -11,9 +12,28 @@ productManagerRouter.use(express.urlencoded({ extended: true }));
 
 productManagerRouter.get("/", async (req, res) => {
   try {
-    const allProducts = await productManagerMongo.getProducts();
+    const allProducts = await productManagerMongo.getProducts(req.query);
 
-    res.status(200).send({ status: "success", data: allProducts });
+    res.status(200).send({
+      payload: allProducts.docs.map((product) => ({
+        id: product._id.toString(),
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        stock: product.stock,
+        thumbnails: product.thumbnails,
+        status: product.status,
+        code: product.code,
+        category: product.category,
+      })),
+      totalPages: allProducts.totalPages,
+      prevPage: allProducts.prevPage,
+      nextPage: allProducts.nextPage,
+      page: allProducts.page,
+      hasPrevPage: allProducts.hasPrevPage,
+      hasNextPage: allProducts.hasNextPage,
+      // ...allProducts,
+    });
   } catch (error) {
     res.status(400).send({ status: "error", error: error.message });
   }
