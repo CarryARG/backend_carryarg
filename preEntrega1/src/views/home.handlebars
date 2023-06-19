@@ -10,4 +10,21 @@
 
     </div>
   {{/each}}
+  <div>
+    {{this.pagingCounter}}
+    {{totalPages}}
+
+    <hr />
+    <hr />
+
+    {{prevPage}}
+    {{#if hasPrevPage}}
+      <a href="http://localhost:8080/?page={{prevPage}}">⬅️</a>
+    {{/if}}
+    {{page}}
+    {{#if hasNextPage}}
+      <a href="http://localhost:8080/?page={{nextPage}}">➡️</a>
+    {{/if}}
+    {{nextPage}}
+  </div>
 </div>
