@@ -63,8 +63,8 @@ export function initializePassport() {
     "github",
     new GitHubStrategy(
       {
-        clientID: "Iv1.741b89e80a399a39",
-        clientSecret: "b2e664111c374d3f72b4da5698a9618efa9a97d1",
+        clientID: "Iv1.14074c462b8bdb46",
+        clientSecret: "7d797a064cf60bece68109779e7d6239696bd817",
         callbackURL: "http://localhost:8080/api/sessions/githubcallback",
       },
       async (accesToken, _, profile, done) => {
