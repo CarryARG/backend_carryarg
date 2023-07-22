@@ -15,10 +15,9 @@ import MongoStore from "connect-mongo";
 import { initializePassport } from "./config/passport.config.js";
 import passport from "passport";
 
-const app = express();
-
 //http://localhost:8080/realtimeproducts
 
+const app = express();
 app.use(cookieParser());
 app.use(
   session({
@@ -83,6 +82,14 @@ app.use("/api/products", productManagerRouter);
 app.use("/api/carts", cartsRouter);
 
 app.use("/api/sessions", loginRouter);
+
+app.use("/api/sessions/current", (req, res) => {
+  return res.status(200).json({
+    status: "success",
+    msg: "User data session",
+    payload: req.session.user || {},
+  });
+});
 
 app.get("*", (req, res) => {
   res.status(404).send({ status: "error", data: "Page not found" });
