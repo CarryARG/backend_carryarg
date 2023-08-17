@@ -25,7 +25,6 @@ app.use(
       mongoUrl:
         "mongodb+srv://carryARG:oD9ZeezEmgSDCE6U@clustercoderbackend.tznplng.mongodb.net/",
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
-      ttl: 15,
     }),
     secret: "secretCoder",
     resave: true,

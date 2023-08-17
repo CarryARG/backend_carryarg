@@ -22,7 +22,7 @@
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.7.12"
   },
-  "name": "preEntrega1_backend",
+  "name": "preentrega1_backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -33,5 +33,12 @@
   "author": "",
   "type": "module",
   "license": "ISC",
+  "devDependencies": {
+    "coffee-script": "^1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CarryARG"
+  },
   "description": ""
 }
