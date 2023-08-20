@@ -14,8 +14,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { initializePassport } from "./config/passport.config.js";
 import passport from "passport";
-
-//http://localhost:8080/realtimeproducts
+import errorHandler from "./middlewares/error.js";
 
 const app = express();
 app.use(cookieParser());
@@ -23,7 +22,7 @@ app.use(
   session({
     store: MongoStore.create({
       mongoUrl:
-        "mongodb+srv://carryARG:oD9ZeezEmgSDCE6U@clustercoderbackend.tznplng.mongodb.net/",
+      "mongodb+srv://carryARG:oD9ZeezEmgSDCE6U@clustercoderbackend.tznplng.mongodb.net/",
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
     secret: "secretCoder",
@@ -52,25 +51,25 @@ app.use(express.static(__dirname + "/public"));
 
 app.use("/", viewsRouter);
 
-/*socketServer.on("connection", async (socket) => {
-  console.log("Nuevo cliente conectado");
-  const products = await productManagerMongo.getProducts();
-  socket.emit("products", products);
-  const msgs = await MsgModel.find({});
-  socketServer.sockets.emit("all_msgs", msgs);
+// socketServer.on("connection", async (socket) => {
+//   console.log("Nuevo cliente conectado");
+//   const products = await productManagerMongo.getProducts();
+//   socket.emit("products", products);
+//   const msgs = await MsgModel.find({});
+//   socketServer.sockets.emit("all_msgs", msgs);
 
-  socket.on("formSubmission", async (data) => {
-    await productManagerMongo.addProduct(data);
-    const products = await productManagerMongo.getProducts();
-    socketServer.sockets.emit("products", products);
-  });
+//   socket.on("formSubmission", async (data) => {
+//     await productManagerMongo.addProduct(data);
+//     const products = await productManagerMongo.getProducts();
+//     socketServer.sockets.emit("products", products);
+//   });
 
-  socket.on("msg_front_to_back", async (msg) => {
-    const msgCreated = await MsgModel.create(msg);
-    const msgs = await MsgModel.find({});
-    socketServer.sockets.emit("all_msgs", msgs);
-  });
-});*/
+//   socket.on("msg_front_to_back", async (msg) => {
+//     const msgCreated = await MsgModel.create(msg);
+//     const msgs = await MsgModel.find({});
+//     socketServer.sockets.emit("all_msgs", msgs);
+//   });
+// });
 
 initializePassport();
 app.use(passport.initialize());
@@ -82,6 +81,39 @@ app.use("/api/carts", cartsRouter);
 
 app.use("/api/sessions", authRouter);
 
+app.get("/mockingproducts", (req, res) => {
+  const products = [];
+  for (let i = 0; i < 100; i++) {
+    products.push({
+      _id: `6483de46fc7349e7c00e547${i}`,
+      title: `Mock ${i}`,
+      description: `Mock desc ${i}`,
+      price: 100 * i,
+      thumbnail: `/img${i}.png`,
+      code: `abc${i}`,
+      stock: 5,
+      status: true,
+      category: `Mock`,
+      __v: 0,
+    });
+  }
+  return res.status(200).json({
+    status: "success",
+    msg: "Products created",
+    docs: products,
+  });
+});
+
+app.get("*", (req, res) => {
+  return res.status(404).json({
+    status: "error",
+    msg: "Route not found",
+    data: {},
+  });
+});
+
 app.get("*", (req, res) => {
   res.status(404).send({ status: "error", data: "Page not found" });
 });
+
+app.use(errorHandler);
