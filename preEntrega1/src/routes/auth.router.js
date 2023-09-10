@@ -61,7 +61,6 @@ authRouter.get(
       rol: req.user.rol,
     };
     // Successful authentication, redirect home.
-    console.log("llegue aca");
     res.redirect("/products");
   }
 );
