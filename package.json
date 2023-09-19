@@ -40,7 +40,10 @@
   "type": "module",
   "license": "ISC",
   "devDependencies": {
-    "coffee-script": "^1.4.0"
+    "chai": "^4.3.8",
+    "coffee-script": "^1.4.0",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   },
   "repository": {
     "type": "git",
