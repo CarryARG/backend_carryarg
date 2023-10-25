@@ -69,7 +69,8 @@ export function initializePassport() {
       {
         clientID: "Iv1.14074c462b8bdb46",
         clientSecret: "7d797a064cf60bece68109779e7d6239696bd817",
-        callbackURL: "http://localhost:8080/api/sessions/githubcallback",
+        callbackURL: 
+          "https://backendcarranzacoderhouse.onrender.com/api/sessions/githubcallback",
       },
       async (accesToken, _, profile, done) => {
         try {
@@ -99,8 +100,12 @@ export function initializePassport() {
               cart: cart._id,
             };
             let userCreated = await userModel.create(newUser);
+
             return done(null, userCreated);
           } else {
+            user.last_connection = Date.now();
+            await user.save();
+
             return done(null, user);
           }
         } catch (e) {

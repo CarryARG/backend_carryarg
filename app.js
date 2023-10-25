@@ -1,36 +1,37 @@
 import express from "express";
 import handlebars from "express-handlebars";
-import __dirname from "./utils.js";
-import { productManagerRouter } from "./routes/products.router.js";
+import __dirname from "./src/utils.js";
+import { productManagerRouter } from "./src/routes/products.router.js";
 // import { ProductManagerMongo } from "./dao/services/productManagerMongo.js";
 // import { MsgModel } from "./dao/models/msgs.model.js";
-import { cartsRouter } from "./routes/carts.router.js";
-import { viewsRouter } from "./routes/views.router.js";
+import { cartsRouter } from "./src/routes/carts.router.js";
+import { viewsRouter } from "./src/routes/views.router.js";
 import { Server } from "socket.io";
-import { connectMongo } from "./utils.js";
-import { authRouter } from "./routes/auth.router.js";
+import { connectMongo } from "./src/utils.js";
+import { authRouter } from "./src/routes/auth.router.js";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import { initializePassport } from "./config/passport.config.js";
+import { initializePassport } from "./src/config/passport.config.js";
 import passport from "passport";
-import errorHandler from "./middlewares/error.js";
-import { addLogger } from "./middlewares/logger.js";
-import { sendEmailTransport } from "./utils.js";
+import errorHandler from "./src/middlewares/error.js";
+import { addLogger } from "./src/middlewares/logger.js";
+import { sendEmailTransport } from "./src/utils.js";
 import crypto from "crypto";
-import { RecoverCodesSchema } from "./dao/models/recover-codes.js";
-import { userModel } from "./dao/models/users.model.js";
+import { RecoverCodesSchema } from "./src/dao/models/recover-codes.js";
+import { userModel } from "./src/dao/models/users.model.js";
 import bcrypt from "bcrypt";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
+import { usersRouter } from "./src/routes/users.router.js";
+import env from "./config.js";
 
 const app = express();
 app.use(cookieParser());
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl:
-      "mongodb+srv://carryARG:oD9ZeezEmgSDCE6U@clustercoderbackend.tznplng.mongodb.net/",
+      mongoUrl: env.mongoUrl,
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
     secret: "secretCoder",
@@ -39,7 +40,7 @@ app.use(
   })
 );
 const port = 8080;
-
+console.log("mongo", env.mongoUrl);
 connectMongo();
 
 app.use(express.urlencoded({ extended: true }));
@@ -59,7 +60,7 @@ const specs = swaggerJsdoc(swaggerOptions);
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 const httpServer = app.listen(port, () => {
-  console.log(`Server running on port http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
 
 const socketServer = new Server(httpServer);
@@ -113,7 +114,7 @@ app.post("/recover-form", async (req, res) => {
     from: process.env.GOOGLE_EMAIL,
     to: email,
     subject: "Recuperar contraseña",
-    html: `<a href="http://localhost:8080/recover-pass?code=${code}&email=${email}"> Tu codigo: ${code} </a>`,
+    html: `<a href="https://backendcarranzacoderhouse.onrender.com/recover-pass?code=${code}&email=${email}"> Tu codigo: ${code} </a>`,
   });
 
   res.send("Email sent, check your inbox");
@@ -152,11 +153,13 @@ app.use("/api/carts", cartsRouter);
 
 app.use("/api/sessions", authRouter);
 
+app.use("/api/users", usersRouter);
+
 app.get("/mockingproducts", (req, res) => {
   const products = [];
   for (let i = 0; i < 100; i++) {
     products.push({
-      _id: `6483de46fc7349e7c00e547${i}`,
+      _id: `9895da36fb7349e7c00e667${i}`,
       title: `Mock ${i}`,
       description: `Mock desc ${i}`,
       price: 100 * i,

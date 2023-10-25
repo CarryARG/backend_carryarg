@@ -18,7 +18,7 @@ authRouter.get("/register", (req, res) => {
 authRouter.post(
   "/register",
   passport.authenticate("register", {
-    failureRedirect: "api/sessions/failregister",
+    failureRedirect: "/failregister",
   }),
   authController.register
 );
@@ -60,7 +60,7 @@ authRouter.get(
       lastName: req.user.lastName,
       rol: req.user.rol,
     };
-    // Successful authentication, redirect home.
+
     res.redirect("/products");
   }
 );

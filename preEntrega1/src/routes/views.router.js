@@ -12,7 +12,7 @@ viewsRouter.use(express.json());
 viewsRouter.use(express.urlencoded({ extended: true }));
 
 viewsRouter.get("/", async (req, res) => {
-  res.render("login");
+  res.render("login", { style: "../css/styles.css" });
 });
 
 viewsRouter.get("/products", checkUser, viewsController.getProducts);
@@ -30,15 +30,19 @@ viewsRouter.get("/chat", async (req, res) => {
 });
 
 viewsRouter.get("/login", async (req, res) => {
-  res.render("login");
+  res.render("login", { style: "../css/styles.css" });
 });
 
 viewsRouter.get("/logout", viewsController.logout);
 
 viewsRouter.get("/register", async (req, res) => {
-  res.render("register");
+  res.render("register", { style: "../css/styles.css" });
 });
 
 viewsRouter.get("/profile", checkUser, async (req, res) => {
   res.render("profile");
 });
+
+viewsRouter.get("/users", checkAdmin, viewsController.getUsers);
+
+viewsRouter.get("/purchase-success", viewsController.purchaseSuccess);
