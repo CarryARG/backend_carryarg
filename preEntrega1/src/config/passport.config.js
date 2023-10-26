@@ -22,6 +22,8 @@ export function initializePassport() {
           if (!isValidPassword(password, user.password)) {
             return done(null, false, { message: "Wrong password" });
           }
+          user.last_connection = Date.now();
+          await user.save();
 
           return done(null, user);
         } catch (error) {

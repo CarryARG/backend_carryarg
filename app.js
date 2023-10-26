@@ -1,29 +1,29 @@
 import express from "express";
 import handlebars from "express-handlebars";
-import __dirname from "./src/utils.js";
-import { productManagerRouter } from "./src/routes/products.router.js";
+import __dirname from "./preEntrega1/src/utils.js";
+import { productManagerRouter } from "./preEntrega1/src/routes/products.router.js";
 // import { ProductManagerMongo } from "./dao/services/productManagerMongo.js";
 // import { MsgModel } from "./dao/models/msgs.model.js";
-import { cartsRouter } from "./src/routes/carts.router.js";
-import { viewsRouter } from "./src/routes/views.router.js";
+import { cartsRouter } from "./preEntrega1/src/routes/carts.router.js";
+import { viewsRouter } from "./preEntrega1/src/routes/views.router.js";
 import { Server } from "socket.io";
-import { connectMongo } from "./src/utils.js";
-import { authRouter } from "./src/routes/auth.router.js";
+import { connectMongo } from "./preEntrega1/src/utils.js";
+import { authRouter } from "./preEntrega1/src/routes/auth.router.js";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import { initializePassport } from "./src/config/passport.config.js";
+import { initializePassport } from "./preEntrega1/src/config/passport.config.js";
 import passport from "passport";
-import errorHandler from "./src/middlewares/error.js";
-import { addLogger } from "./src/middlewares/logger.js";
-import { sendEmailTransport } from "./src/utils.js";
+import errorHandler from "./preEntrega1/src/middlewares/error.js";
+import { addLogger } from "./preEntrega1/src/middlewares/logger.js";
+import { sendEmailTransport } from "./preEntrega1/src/utils.js";
 import crypto from "crypto";
-import { RecoverCodesSchema } from "./src/dao/models/recover-codes.js";
-import { userModel } from "./src/dao/models/users.model.js";
+import { RecoverCodesSchema } from "./preEntrega1/src/dao/models/recover-codes.js";
+import { userModel } from "./preEntrega1/src/dao/models/users.model.js";
 import bcrypt from "bcrypt";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
-import { usersRouter } from "./src/routes/users.router.js";
+import { usersRouter } from "./preEntrega1/src/routes/users.router.js";
 import env from "./config.js";
 
 const app = express();
@@ -58,6 +58,8 @@ const swaggerOptions = {
 
 const specs = swaggerJsdoc(swaggerOptions);
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
+// const productManagerMongo = new ProductManagerMongo();
 
 const httpServer = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
@@ -159,7 +161,7 @@ app.get("/mockingproducts", (req, res) => {
   const products = [];
   for (let i = 0; i < 100; i++) {
     products.push({
-      _id: `9895da36fb7349e7c00e667${i}`,
+      _id: `6483de46fc7349e7c00e547${i}`,
       title: `Mock ${i}`,
       description: `Mock desc ${i}`,
       price: 100 * i,
