@@ -13,8 +13,9 @@ export default __dirname;
 export async function connectMongo() {
   try {
     await connect(
-      "mongodb+srv://carryARG:oD9ZeezEmgSDCE6U@clustercoderbackend.tznplng.mongodb.net/"
-    );
+      "mongodb+srv://carryARG:oD9ZeezEmgSDCE6U@clustercoderbackend.tznplng.mongodb.net/?retryWrites=true&w=majority"
+      
+      );
     console.log("plug mongo");
   } catch (e) {
     console.log(e);
