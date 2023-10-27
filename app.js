@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl: env.mongoUrl,
+      mongoUrl: "mongodb+srv://carryARG:oD9ZeezEmgSDCE6U@clustercoderbackend.tznplng.mongodb.net/?retryWrites=true&w=majority",
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
     secret: "secretCoder",
